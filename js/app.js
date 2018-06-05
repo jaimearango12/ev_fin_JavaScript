@@ -118,3 +118,97 @@ var calculadora = {
 		this.updateVisor();
 		}
 	},
+
+  ingresoDecimal: function(){
+		if (this.valorVisor.indexOf(".")== -1) {
+			if (this.valorVisor == ""){
+				this.valorVisor = this.valorVisor + "0.";
+			} else {
+				this.valorVisor = this.valorVisor + ".";
+			}
+			this.updateVisor();
+		}
+	},
+
+	ingresoNumero: function(valor){
+		if (this.valorVisor.length < 8) {
+
+			if (this.valorVisor=="0") {
+				this.valorVisor = "";
+				this.valorVisor = this.valorVisor + valor;
+			} else {
+				this.valorVisor = this.valorVisor + valor;
+			}
+		this.updateVisor();
+		}
+	},
+
+	ingresoOperacion: function(oper){
+		this.primerValor = parseFloat(this.valorVisor);
+		this.valorVisor = "";
+		this.operacion = oper;
+		this.auxTeclaIgual = false;
+		this.updateVisor();
+	},
+
+	verResultado: function(){ // TECLA IGUAL
+
+		if(!this.auxTeclaIgual){ //Primer vez que presiono igual
+			this.segundoValor = parseFloat(this.valorVisor);
+			this.ultimoValor = this.segundoValor;
+
+		//Calculo el resultado
+			this.realizarOperacion(this.primerValor, this.segundoValor, this.operacion);
+
+		} else { //Siguientes veces que presiono igual
+		//Calculo el resultado
+		this.realizarOperacion(this.primerValor, this.ultimoValor, this.operacion);
+		}
+
+		//Almaceno el resultado como primer valor para poder seguir operando
+		this.primerValor = this.resultado;
+
+		//Borro el visor y lo reemplazo por el resultado
+		this.valorVisor = "";
+
+		//verifico el largo del resultado para recortarlo si hace falta
+
+		if (this.resultado.toString().length < 9){
+			this.valorVisor = this.resultado.toString();
+		} else {
+			this.valorVisor = this.resultado.toString().slice(0,8) + "...";
+		}
+
+		//Auxiliar para indicar si ya se presionó la tecla igual, para calcular sobre el último valor
+
+		this.auxTeclaIgual = true;
+		this.updateVisor();
+
+	},
+
+	realizarOperacion: function(primerValor, segundoValor, operacion){
+		switch(operacion){
+			case "+":
+				this.resultado = eval(primerValor + segundoValor);
+			break;
+			case "-":
+				this.resultado = eval(primerValor - segundoValor);
+			break;
+			case "*":
+				this.resultado = eval(primerValor * segundoValor);
+			break;
+			case "/":
+				this.resultado = eval(primerValor / segundoValor);
+			break;
+			case "raiz":
+				this.resultado = eval(Math.sqrt(primerValor));
+		}
+	},
+
+	updateVisor: function(){
+		this.visor.innerHTML = this.valorVisor;
+	}
+
+};
+
+calculadora.init();
