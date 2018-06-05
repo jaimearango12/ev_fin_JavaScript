@@ -63,3 +63,58 @@ var calculadora = {
   	},
 
   	//---Fin evento de formato de botones
+
+    //Eventos de función de calculadora
+
+	asignarEventosaFuncion: function(){
+		document.getElementById("0").addEventListener("click", function() {calculadora.ingresoNumero("0");});
+		document.getElementById("1").addEventListener("click", function() {calculadora.ingresoNumero("1");});
+		document.getElementById("2").addEventListener("click", function() {calculadora.ingresoNumero("2");});
+		document.getElementById("3").addEventListener("click", function() {calculadora.ingresoNumero("3");});
+		document.getElementById("4").addEventListener("click", function() {calculadora.ingresoNumero("4");});
+		document.getElementById("5").addEventListener("click", function() {calculadora.ingresoNumero("5");});
+		document.getElementById("6").addEventListener("click", function() {calculadora.ingresoNumero("6");});
+		document.getElementById("7").addEventListener("click", function() {calculadora.ingresoNumero("7");});
+		document.getElementById("8").addEventListener("click", function() {calculadora.ingresoNumero("8");});
+		document.getElementById("9").addEventListener("click", function() {calculadora.ingresoNumero("9");});
+		document.getElementById("on").addEventListener("click", function() {calculadora.borrarVisor();});
+		document.getElementById("sign").addEventListener("click", function() {calculadora.cambiarSigno();});
+		document.getElementById("punto").addEventListener("click", function() {calculadora.ingresoDecimal();});
+		document.getElementById("igual").addEventListener("click", function() {calculadora.verResultado();});
+		document.getElementById("raiz").addEventListener("click", function() {calculadora.ingresoOperacion("raiz");});
+		document.getElementById("dividido").addEventListener("click", function() {calculadora.ingresoOperacion("/");});
+		document.getElementById("por").addEventListener("click", function() {calculadora.ingresoOperacion("*");});
+		document.getElementById("menos").addEventListener("click", function() {calculadora.ingresoOperacion("-");});
+		document.getElementById("mas").addEventListener("click", function() {calculadora.ingresoOperacion("+");});
+	},
+
+	//---Fin eventos de función calculadora
+
+	//Funcion de teclas de calculadora
+
+	borrarVisor: function(){
+
+	    this.valorVisor = "0";
+		this.operacion = "";
+		this.primerValor = 0;
+		this.segundoValor = 0;
+		this.resultado = 0;
+		this.Operación = "";
+		this.auxTeclaIgual = false;
+		this.ultimoValor = 0;
+		this.updateVisor();
+	},
+
+	cambiarSigno: function(){
+		if (this.valorVisor !="0") {
+			var aux;
+			if (this.valorVisor.charAt(0)=="-") {
+				aux = this.valorVisor.slice(1);
+			}	else {
+				aux = "-" + this.valorVisor;
+			}
+		this.valorVisor = "";
+		this.valorVisor = aux;
+		this.updateVisor();
+		}
+	},
