@@ -186,7 +186,7 @@ var calculadora = {
 
 	},
 
-	realizarOperacion: function(primerValor, segundoValor, operacion){
+	realizarOperacion: function(primerValor, segundoValor, operacion){ //Con esta funcion realiza las opetaciones aritmericas
 		switch(operacion){
 			case "+":
 				this.resultado = eval(primerValor + segundoValor);
